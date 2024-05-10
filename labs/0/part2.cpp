@@ -10,32 +10,34 @@
 // you can only modify MyClass. Do not change AutoGrading or the main function.
 
 class MyClass {
+private:
     int myIntValue;
-    double myDoubleValue;
-    bool myBoolValue;
+    double myDoubleValue = 1.0;
+    bool myBoolValue = true;
     
-    setInt (int x){         //this function gives myIntValue a new value
+public:
+    void setInt (int x){         //this function gives myIntValue a new value
         myIntValue = x;
     }
 
-    setDouble (int x){      //this function gives myDoubleValue a new value
+    void setDouble (double x){      //this function gives myDoubleValue a new value
         myDoubleValue = x;
     }
 
-    setBool (int x){        //this function gives myBoolValue a new value
+    void setBool (int x){        //this function gives myBoolValue a new value
         myBoolValue = x;
     }
 
-    int doIntPlusOne (){    //this function returns the value of myIntValue plus 1, without changing myIntValue
-        return myIntValue++;
+    int doIntPlusOne (){  //this function returns the value of myIntValue plus 1, without changing myIntValue
+        return myIntValue + 1;
     }
 
     double doDoublePlusOnePointOne (){     //this function return the value of myDoubleValue plus 1.1, without changing myDoubleValue
-        double returnValue = myDoubleValue;
+        return myDoubleValue + 1.1;
     }
 
     bool doBoolNot(){       //this function return the opposite (NOT) value of myBoolValue, i.e., true to false, false to true, without changing myBoolValue
-        bool returnValue =  myBoolValue + true;
+        return !(myBoolValue);
     }
 
     int getInt (){      //return myIntValue
