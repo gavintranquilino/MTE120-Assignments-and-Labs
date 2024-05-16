@@ -3,12 +3,12 @@
 struct Node 
 {
     int data;
-    Node *next; // point to the next node
+    Node* next; // point to the next node
 };
 
-void deleteAllNodes(Node *head)
+void deleteAllNodes(Node* head)
 {
-    Node *temp = NULL;
+    Node* temp = NULL;
     while (head != NULL)
     {
         temp = head;
@@ -18,16 +18,16 @@ void deleteAllNodes(Node *head)
     }
 }
 
-void deleteFirstNode(Node *head)
+void deleteFirstNode(Node* head)
 {
-    Node *temp = NULL;
+    Node* temp = NULL;
     temp = head;
     head = head->next;
     delete temp;
     temp = NULL;
 }
 
-void printAllNodes(Node *head)
+void printAllNodes(Node* head)
 {
     while (head != NULL)
     {
@@ -39,7 +39,7 @@ void printAllNodes(Node *head)
 int main() 
 {
     // Create the first HEAD node
-    Node *head = new Node;
+    Node* head = new Node;
     Node(); // default constructor
 
     head->data=1;
@@ -52,7 +52,6 @@ int main()
     head->next->next->next = NULL;
 
     deleteFirstNode(head);
-
     printAllNodes(head);
 
     return 0;
