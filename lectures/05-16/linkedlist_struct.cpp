@@ -51,6 +51,8 @@ int main()
     head->next->next->data = 6;
     head->next->next->next = NULL;
 
+    deleteFirstNode(head);
+
     printAllNodes(head);
 
     return 0;
