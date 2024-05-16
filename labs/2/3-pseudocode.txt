@@ -1,0 +1,21 @@
+1. Start
+2. Declare a constant integer SIZE and assign 10 to it
+3. Declare an integer array arr with SIZE elements
+4. Declare an integer n
+5. Print "Enter 10 integers: "
+6. Read n integers into the array arr
+7. Declare an integer position
+8. Print "Enter the position to delete (0 to n-1): "
+9. Read the position
+10. If position is less than 0 or position is greater than or equal to n, then
+11.     Print "Invalid position!"
+12.     Return 1
+13. End If
+14. Traverse the array from position to n-1
+15.     Assign the value of the next element to the current element
+16. Decrement n
+17. Print "Array after deletion: "
+18. Traverse the array from 0 to n-1
+19.     Print the element
+20. Print a newline
+21. End
