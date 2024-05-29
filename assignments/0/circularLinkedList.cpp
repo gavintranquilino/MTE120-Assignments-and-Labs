@@ -17,21 +17,16 @@ private:
     Node* head;
 
 public:
-    // Default Constructor
     CircularLinkedList() : head(nullptr) {};
 
-    // Insertion
     void insert(int value, int index);
 
-    // Deletion
-    void remove(int index);
+    // void remove(int index);
 
-    // Display
     void display();
 
-    // Search 
-    void search();
-}
+    // void search();
+};
 
 // Method Definition
 void CircularLinkedList::insert(int value, int index)
@@ -45,14 +40,70 @@ void CircularLinkedList::insert(int value, int index)
             return;
         }
 
-        
+        else
+        {
+            head->prev->next = newNode;
+            newNode->next = head;
+            head = newNode;
+        }
     }
-    
+
+    else
+    {
+        int position = 1;
+        Node* previous = head;
+        Node* current = head->next;
+
+        while (position < index)
+        {
+            previous = previous->next;
+            current = current->next;
+            if (current == nullptr)
+            {
+                break; // position value larger than it should
+            }
+            position++;
+        }
+
+        previous->next = newNode;
+        newNode->prev = previous;
+        newNode->next = current;
+        if (current != nullptr)
+        {
+            current->prev = newNode;
+        }
+    }
+}
+
+void CircularLinkedList::display()
+{
+    if (head == nullptr)
+    {
+        std::cout << "head->NULL";
+        return;
+    }
+
+    while (head != nullptr)
+    {
+        std::cout << head->data << "->";
+        head = head->next;
+    }
+
+    std::cout << head->next;
+    return;
 }
 
 // Test Cases?
 int main()
 {
-    CircularLinkedList CLL(1);
+    CircularLinkedList CLL;
+    CLL.insert(0, 0);
+    CLL.insert(1, 1);
+    CLL.insert(2, 2);
+    CLL.insert(3, 3);
+
+    CLL.insert(99, 3);
+
+    CLL.display();
 }
 

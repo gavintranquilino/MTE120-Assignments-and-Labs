@@ -8,6 +8,11 @@
         "xutility": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "xhash": "cpp",
+        "*.tcc": "cpp"
     }
 }
