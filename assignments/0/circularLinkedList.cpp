@@ -1,29 +1,28 @@
 #include <iostream>
 
-// Node Structure
-struct Node
-{
-    int data;
-    Node* next;
-    Node* prev;
-    Node() : data(0), next(nullptr), prev(nullptr) {}; // Default Constructor
-    Node(int value) : data(value), next(nullptr), prev(nullptr) {}; // Data Constructor
-};
-
-// Circular Doubly Linked List Class Definition
 class CircularLinkedList
 {
 private:
+    struct Node
+    {
+        int data;
+        Node* next;
+        Node* prev;
+        Node() : data(0), next(nullptr), prev(nullptr) {}; // Default Constructor
+        Node(int value) : data(value), next(nullptr), prev(nullptr) {}; // Data Constructor
+    };
     Node* head;
+    int size;
 
 public:
-    CircularLinkedList() : head(nullptr) {};
+    CircularLinkedList() : head(nullptr), size(0) {};
 
     void insert(int value, int index);
 
     // void remove(int index);
 
-    void display();
+    void displayFwd();
+    void displayBkwd();
 
     // void search();
 };
@@ -32,64 +31,88 @@ public:
 void CircularLinkedList::insert(int value, int index)
 {
     Node* newNode = new Node(value);
+
+    if (index > size)
+    {
+        std::cout << "Invalid Position";
+    }
+
     if (index == 0)
     {
-        if (head == nullptr)
+        if (head == nullptr) // size 0
         {
             head = newNode;
+            head->next = head;
+            head->prev = head;
+            size++;
             return;
         }
 
-        else
+        else // size 1
         {
-            head->prev->next = newNode;
+            head->prev = newNode;
+            head->next = newNode;
             newNode->next = head;
+            newNode->prev = head;
             head = newNode;
+            size++;
+            return;
         }
     }
 
-    else
+    Node* previous = head->prev;
+    Node* current = head;
+
+    int position = 0;
+    while (position < index)
     {
-        int position = 1;
-        Node* previous = head;
-        Node* current = head->next;
-
-        while (position < index)
-        {
-            previous = previous->next;
-            current = current->next;
-            if (current == nullptr)
-            {
-                break; // position value larger than it should
-            }
-            position++;
-        }
-
-        previous->next = newNode;
-        newNode->prev = previous;
-        newNode->next = current;
-        if (current != nullptr)
-        {
-            current->prev = newNode;
-        }
+        previous = previous->next;
+        current = current->next;
+        position++;
     }
+    // left to right
+    previous->next = newNode;
+    newNode->prev = previous;
+    newNode->next = current;
+    current->prev = newNode;
+    size++;
 }
 
-void CircularLinkedList::display()
+void CircularLinkedList::displayFwd()
 {
     if (head == nullptr)
     {
         std::cout << "head->NULL";
         return;
     }
+    
+    Node* curr = head;
 
-    while (head != nullptr)
+    for (int i=0; i<size; i++)
     {
-        std::cout << head->data << "->";
-        head = head->next;
+        std::cout << curr->data << "->";
+        curr = curr->next;
     }
+    std::cout << '\n';
+    return;
+}
 
-    std::cout << head->next;
+void CircularLinkedList::displayBkwd()
+{
+    if (head == nullptr)
+    {
+        std::cout << "head->NULL";
+        return;
+    }
+    
+    Node* tail = head->prev;
+
+    for (int i=0; i<size; i++)
+    {
+        std::cout << tail->data << "->";
+        tail = tail->prev;
+    }
+    std::cout << '\n';
     return;
 }
 
@@ -97,13 +120,14 @@ void CircularLinkedList::display()
 int main()
 {
     CircularLinkedList CLL;
+    CLL.insert(1, 0);
     CLL.insert(0, 0);
-    CLL.insert(1, 1);
     CLL.insert(2, 2);
     CLL.insert(3, 3);
 
-    CLL.insert(99, 3);
-
-    CLL.display();
+    std::cout << "Forward ";
+    CLL.displayFwd();
+    std::cout << "Backward ";
+    CLL.displayBkwd();
 }
 

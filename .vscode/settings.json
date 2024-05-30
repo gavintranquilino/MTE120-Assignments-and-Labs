@@ -13,6 +13,11 @@
         "list": "cpp",
         "unordered_map": "cpp",
         "xhash": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "format": "cpp",
+        "initializer_list": "cpp",
+        "queue": "cpp",
+        "random": "cpp",
+        "utility": "cpp"
     }
 }
