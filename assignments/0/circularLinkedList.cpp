@@ -34,27 +34,17 @@ void CircularLinkedList::insert(int value, int index)
 
     if (index > size)
     {
-        std::cout << "Invalid Position";
+        std::cout << "Invalid Position\n";
+        return;
     }
 
-    if (index == 0)
+    if (head == nullptr)
     {
-        if (head == nullptr) // size 0
+        if (index == 0) // size 0
         {
             head = newNode;
             head->next = head;
             head->prev = head;
-            size++;
-            return;
-        }
-
-        else // size 1
-        {
-            head->prev = newNode;
-            head->next = newNode;
-            newNode->next = head;
-            newNode->prev = head;
-            head = newNode;
             size++;
             return;
         }
@@ -75,6 +65,10 @@ void CircularLinkedList::insert(int value, int index)
     newNode->prev = previous;
     newNode->next = current;
     current->prev = newNode;
+    if (size == 1)
+    {
+        head = newNode;
+    }
     size++;
 }
 
@@ -124,6 +118,11 @@ int main()
     CLL.insert(0, 0);
     CLL.insert(2, 2);
     CLL.insert(3, 3);
+
+    CLL.insert(3, 6);
+
+    CLL.insert(69, 2);
+    CLL.insert(420, 0);
 
     std::cout << "Forward ";
     CLL.displayFwd();
