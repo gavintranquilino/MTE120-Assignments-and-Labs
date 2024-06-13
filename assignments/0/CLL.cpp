@@ -96,6 +96,22 @@ public:
         
         return (temp->next == head && temp->data != num) ? -1 : index;
     }
+
+    void searchAll(int num)
+    {
+        Node* temp = head;
+        int index = 0;
+
+        do 
+        {
+            if (temp->data == num)
+            {
+                std::cout << index << '\n';
+            }
+            temp = temp->next;
+            index++;
+        } while (temp != head);
+    }
 };
 
 void CircularLinkedList::displayBkwd()
@@ -113,17 +129,23 @@ void CircularLinkedList::displayBkwd()
 int main() {
     CircularLinkedList list;
 
+    list.insert(21);
     list.insert(5);
     list.insert(8);
+    list.insert(21);
     list.insert(1);
     list.display();
     list.remove(5);
     list.display();
     list.remove(9);
+    list.insert(21);
+    list.insert(21);
+    list.display();
 	// list.remove(8);
 	// list.remove(1);
 
     list.displayBkwd();
+    list.searchAll(21);
 
     return EXIT_SUCCESS;
 }
