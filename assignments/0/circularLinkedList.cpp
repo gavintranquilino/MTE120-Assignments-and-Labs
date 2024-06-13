@@ -19,12 +19,12 @@ public:
 
     void insert(int value, int index);
 
-    // void remove(int index);
+    void deleteLastOccurence(int index);
 
     void displayFwd();
     void displayBkwd();
 
-    // void search();
+    int search(int value);
 };
 
 // Method Definition
@@ -72,45 +72,104 @@ void CircularLinkedList::insert(int value, int index)
     size++;
 }
 
-void CircularLinkedList::displayFwd()
+void CircularLinkedList::deleteLastOccurence(int value)
 {
+    // there is no list
     if (head == nullptr)
     {
-        std::cout << "head->NULL";
-        return;
+        std::cout << "so no head\n";
     }
-    
-    Node* curr = head;
 
-    for (int i=0; i<size; i++)
+    // there is just 1 thing in the list
+    else if (head->next == head && head->prev == head && head->data == value)
+    {
+        delete head;
+        head = nullptr;
+        size--;
+    }
+
+    // everything else
+    else
+    {
+        Node* curr = head;
+        while (curr->prev != head && curr->prev->data != value)
+        {
+            curr = curr->prev;
+        }
+
+        if (curr->prev->data == value)
+        {
+            Node* deleteMe = curr->prev;
+            deleteMe->prev->next = deleteMe->next;
+            deleteMe->next->prev = deleteMe->prev;
+
+            if (deleteMe == head)
+            {
+                head = head->next;
+            }
+
+            delete deleteMe;
+            deleteMe = nullptr;
+            size--;
+            std::cout << "get deleted\n";
+        }
+
+        else 
+        {
+            std::cout << "cant find\n";
+        }
+
+    }
+
+    return;
+}
+
+void CircularLinkedList::displayFwd()
+{
+    Node* curr = head;
+    do
     {
         std::cout << curr->data << "->";
         curr = curr->next;
-    }
+    } while (curr != head);
     std::cout << '\n';
-    return;
+   return;
 }
 
 void CircularLinkedList::displayBkwd()
 {
-    if (head == nullptr)
-    {
-        std::cout << "head->NULL";
-        return;
-    }
-    
     Node* tail = head->prev;
-
-    for (int i=0; i<size; i++)
+    do
     {
         std::cout << tail->data << "->";
         tail = tail->prev;
-    }
+    } while (tail != head->prev);
     std::cout << '\n';
     return;
 }
 
-// Test Cases?
+int CircularLinkedList::search(int value)
+{
+    Node* curr = head;
+    int index = 0;
+
+    while (curr->data != value && curr->next != head)
+    {
+        curr = curr->next;
+        index++;
+    }
+
+    if (curr->next == head && curr->data != value)
+    {
+        return -1; // not found
+    }
+
+    else
+    {
+        return index;
+    }
+}
+
 int main()
 {
     CircularLinkedList CLL;
@@ -122,11 +181,22 @@ int main()
     CLL.insert(3, 6);
 
     CLL.insert(69, 2);
+    CLL.insert(69, 4);
     CLL.insert(420, 0);
 
     std::cout << "Forward ";
     CLL.displayFwd();
     std::cout << "Backward ";
     CLL.displayBkwd();
-}
 
+    CLL.deleteLastOccurence(69);
+    std::cout << "Forward ";
+    CLL.displayFwd();
+    std::cout << "Backward ";
+    CLL.displayBkwd();
+
+    std::cout << "found at: " << CLL.search(420) << '\n';
+    std::cout << "found at: " << CLL.search(999) << '\n';
+
+    return 0;
+}
