@@ -1,3 +1,8 @@
+/*
+Author: Gavin Tranquilino
+Date: July 11th, 2024
+Description: N Queens Problem on an NxN chess board, using a stack, and a recursive backtracking algorithm
+*/
 #include <iostream>
 #include <fstream>
 #include <stack>

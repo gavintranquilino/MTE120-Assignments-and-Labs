@@ -1,0 +1,29 @@
+Use of the stack:
+- A Square struct is created for each square on the chessboard where (0, 0) is the top left corner.
+- Contains unsigned integers x and y for the coordinate values.
+- Each square where a queen exists on the chessboard is pushed into the stack.
+- The stack maintains the order of the sequence of queen placements for backtracking. 
+
+Description of the recursive backtracking algorithm:
+- base case:
+    - if the current row is the last row of the chessboard, and includes special cases for a 2x2 and 3x3 grid
+    - return true  
+- recursive case:
+    - iterates through all columns left to right on 1 row
+    - for each column, check if that square is safe
+        - safe?
+            - push the current square onto the stack (you have put a queen there)
+            - call the same function to check the next row
+                - iterates through all columns, but has context from the stack where queens are
+            - stops here once a queen is placed on the last row (you have reached the base case)
+            - ***IMPORTANT***: the function returns false if it doesn't find anywhere to put a queen on the current row
+                - can't put a queen on the next row?
+                    - pop the most recent queen from the stack
+
+- The function calls uses recursion in order to visit possible solutions for queen placements, but allows to backtrack to previous positions
+
+How to check if some position is valid and safe for a queen:
+- A boolean function returns:
+    - false, if queen is in the same column or on a diagonal from a queen
+    - create a copy of the stack   
+        - until the stack is empty, check the column or diagonal
